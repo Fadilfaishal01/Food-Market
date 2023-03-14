@@ -5,6 +5,7 @@ const MainColor = {
   secondary: '#020202',
   third: '#8D92A3',
   fourth: '#F0F0F0',
+  Fifth: '#F2F2F2',
 };
 
 const colors = {
@@ -14,6 +15,7 @@ const colors = {
   secondary: MainColor.secondary,
   third: MainColor.third,
   fourth: MainColor.fourth,
+  Fifth: MainColor.Fifth,
 };
 
 export default colors;

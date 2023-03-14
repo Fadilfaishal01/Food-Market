@@ -1,39 +1,33 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import React from 'react';
-import {Button, Gap, Header, Input} from '../../components';
+import {Button, Gap, Input, Header, Select} from '../../components';
 import {colors, fonts, TypeIcon} from '../../utils';
 
-export default function SignUp({navigation}) {
+export default function SignUpAddress({navigation}) {
   return (
     <View style={styles.container}>
       <Header
         withIcon
-        title="Sign Up"
-        subTitle="Register and eat"
+        title="Address"
+        subTitle="Make sure it's valid"
         onPress={() => navigation.goBack()}
       />
       <View style={styles.wrapper}>
         <Gap height={26} />
-        <TouchableOpacity activeOpacity={0.7} style={styles.sectionPhoto}>
-          <View style={styles.borderPhoto}>
-            <View style={styles.photoContainer}>
-              <Text style={styles.addPhoto}>Add Photo</Text>
-            </View>
-          </View>
-        </TouchableOpacity>
+        <Input label="Phone No." placeholder="Type your phone number" />
         <Gap height={16} />
-        <Input label="Full Name" placeholder="Type your full name" />
+        <Input label="Address" placeholder="Type your address" />
         <Gap height={16} />
-        <Input label="Email Address" placeholder="Type your email address" />
+        <Input label="House No." placeholder="Type your house number" />
         <Gap height={16} />
-        <Input label="Password" placeholder="Type your password" />
+        <Select label="City" />
         <Gap height={24} />
         <Button
-          title="Continue"
+          onPress={() => navigation.replace('SuccessSignUp')}
+          title="Sign Up Now"
           typeButton="btnWithIcon"
           typeIcon={TypeIcon.fontawesome}
-          iconName="arrow-right"
-          onPress={() => navigation.navigate('SignUpAddress')}
+          iconName="save"
         />
       </View>
     </View>

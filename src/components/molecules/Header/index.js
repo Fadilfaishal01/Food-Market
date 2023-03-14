@@ -3,17 +3,10 @@ import React from 'react';
 import {colors, fonts} from '../../../utils';
 import {IcBack} from '../../../assets';
 
-export default function Header({
-  title,
-  subTitle,
-  withIcon = false,
-  navigation,
-}) {
+export default function Header({title, subTitle, withIcon = false, onPress}) {
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        style={styles.wrapperIcon}
-        onPress={() => navigation.goBack()}>
+      <TouchableOpacity style={styles.wrapperIcon} onPress={onPress}>
         <IcBack />
       </TouchableOpacity>
       <View>
