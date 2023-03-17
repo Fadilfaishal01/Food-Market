@@ -41,7 +41,10 @@ export default function FoodDetail({navigation}) {
             <Text style={styles.priceTotal}>IDR 12.900.000</Text>
           </View>
           <View style={styles.button}>
-            <Button title="Order Now" />
+            <Button
+              title="Order Now"
+              onPress={() => navigation.navigate('OrderSummary')}
+            />
           </View>
         </View>
       </View>

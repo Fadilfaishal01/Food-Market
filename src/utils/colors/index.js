@@ -6,6 +6,8 @@ const MainColor = {
   third: '#8D92A3',
   fourth: '#F0F0F0',
   Fifth: '#F2F2F2',
+  green: '#1ABC9C',
+  red: '#D9435E',
 };
 
 const colors = {
@@ -16,6 +18,8 @@ const colors = {
   third: MainColor.third,
   fourth: MainColor.fourth,
   Fifth: MainColor.Fifth,
+  success: MainColor.green,
+  danger: MainColor.red,
 };
 
 export default colors;

@@ -1,22 +1,44 @@
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View, ScrollView} from 'react-native';
 import React from 'react';
 import {Button, Gap, Header, Input} from '../../components';
-import {colors, TypeIcon} from '../../utils';
+import {colors, TypeIcon, useForm} from '../../utils';
 import {Login} from '../../assets';
 
 export default function SignIn({navigation}) {
+  const [form, setForm] = useForm({
+    email: '',
+    password: '',
+  });
+
+  const onSubmit = () => {
+    console.log(form);
+    // navigation.navigate('SignUp');
+  };
+
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <Header title="Sign In" subTitle="Find your best ever meal" />
       <View style={styles.wrapperIconSVG}>
         <Login width={'100%'} height={'70%'} />
       </View>
       <View style={styles.wrapper}>
-        <Input label="Email Address" placeholder="Type your email address" />
+        <Input
+          label="Email Address"
+          placeholder="Type your email address"
+          value={form.email}
+          onChangeText={value => setForm('email', value)}
+        />
         <Gap height={16} />
-        <Input label="Password" placeholder="Type your password" />
+        <Input
+          label="Password"
+          placeholder="Type your password"
+          value={form.password}
+          onChangeText={value => setForm('password', value)}
+          secureTextEntry={true}
+        />
         <Gap height={24} />
         <Button
+          onPress={() => onSubmit()}
           title="Sign In"
           typeButton="btnWithIcon"
           typeIcon={TypeIcon.fontawesome}
@@ -33,7 +55,7 @@ export default function SignIn({navigation}) {
           iconName="user-plus"
         />
       </View>
-    </View>
+    </ScrollView>
   );
 }
 

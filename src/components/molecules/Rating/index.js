@@ -3,7 +3,7 @@ import React from 'react';
 import {IcStarOff, IcStarOn} from '../../../assets';
 import {fonts} from '../../../utils';
 
-export default function Rating() {
+export default function Rating({rating}) {
   return (
     <View style={styles.rateContainer}>
       <View style={styles.starContainer}>

@@ -6,9 +6,11 @@ import {IcBack} from '../../../assets';
 export default function Header({title, subTitle, withIcon = false, onPress}) {
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.wrapperIcon} onPress={onPress}>
-        <IcBack />
-      </TouchableOpacity>
+      {withIcon && (
+        <TouchableOpacity style={styles.wrapperIcon} onPress={onPress}>
+          <IcBack />
+        </TouchableOpacity>
+      )}
       <View>
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.subTitle}>{subTitle}</Text>
