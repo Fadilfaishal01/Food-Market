@@ -3,6 +3,8 @@ import React from 'react';
 import {Button, Gap, Header, Input} from '../../components';
 import {colors, TypeIcon, useForm} from '../../utils';
 import {Login} from '../../assets';
+import axios from 'axios';
+import {showMessageCustom} from '../../utils/alertFlashMessage';
 
 export default function SignIn({navigation}) {
   const [form, setForm] = useForm({
@@ -11,8 +13,14 @@ export default function SignIn({navigation}) {
   });
 
   const onSubmit = () => {
-    console.log(form);
-    // navigation.navigate('SignUp');
+    axios
+      .post('http://192.168.20.254:8001/api/login', form)
+      .then(res => {
+        showMessageCustom('Successfully Login', 'success');
+      })
+      .catch(err => {
+        showMessageCustom(err.message, 'danger');
+      });
   };
 
   return (
