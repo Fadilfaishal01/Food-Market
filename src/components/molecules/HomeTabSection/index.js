@@ -1,4 +1,10 @@
-import {StyleSheet, Text, View, useWindowDimensions, ScrollView} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  useWindowDimensions,
+  ScrollView,
+} from 'react-native';
 import React from 'react';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import {colors, fonts} from '../../../utils';
@@ -14,7 +20,7 @@ const NewTasteTab = () => {
         <ItemListFood
           type="product"
           ratings={4.5}
-          onPress={() => console.log('Halo')}
+          onPress={() => navigation.navigate('FoodDetail')}
           title="Sop Buntut Sapi"
           price="IDR 150.000"
           image={FoodDummy1}
@@ -46,7 +52,7 @@ const NewTasteTab = () => {
         <ItemListFood
           type="product"
           ratings={4.5}
-          onPress={() => console.log('Halo')}
+          onPress={() => navigation.navigate('FoodDetail')}
           title="Sop Buntut Sapi"
           price="IDR 150.000"
           image={FoodDummy1}
@@ -88,7 +94,7 @@ const PopularTab = () => {
         <ItemListFood
           type="product"
           ratings={4.5}
-          onPress={() => console.log('Halo')}
+          onPress={() => navigation.navigate('FoodDetail')}
           title="Sop Buntut Sapi"
           price="IDR 150.000"
           image={FoodDummy1}
@@ -120,7 +126,7 @@ const PopularTab = () => {
         <ItemListFood
           type="product"
           ratings={4.5}
-          onPress={() => console.log('Halo')}
+          onPress={() => navigation.navigate('FoodDetail')}
           title="Sop Buntut Sapi"
           price="IDR 150.000"
           image={FoodDummy1}
@@ -162,7 +168,7 @@ const RecommendedTab = () => {
         <ItemListFood
           type="product"
           ratings={4.5}
-          onPress={() => console.log('Halo')}
+          onPress={() => navigation.navigate('FoodDetail')}
           title="Sop Buntut Sapi"
           price="IDR 150.000"
           image={FoodDummy1}
@@ -194,7 +200,7 @@ const RecommendedTab = () => {
         <ItemListFood
           type="product"
           ratings={4.5}
-          onPress={() => console.log('Halo')}
+          onPress={() => navigation.navigate('FoodDetail')}
           title="Sop Buntut Sapi"
           price="IDR 150.000"
           image={FoodDummy1}

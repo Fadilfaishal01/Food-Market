@@ -5,21 +5,48 @@ import {colors, TypeIcon, useForm} from '../../utils';
 import {Login} from '../../assets';
 import axios from 'axios';
 import {showMessageCustom} from '../../utils/alertFlashMessage';
+import {useDispatch, useSelector} from 'react-redux';
 
 export default function SignIn({navigation}) {
+  const stateAPI = useSelector(state => state.apiReducer);
+  const dispatch = useDispatch();
+
   const [form, setForm] = useForm({
     email: '',
     password: '',
   });
 
   const onSubmit = () => {
-    axios
-      .post('http://192.168.20.254:8001/api/login', form)
+    if (stateAPI.url === '') {
+      dispatch({type: 'SET_MODAL_API', value: true});
+    }
+
+    dispatch({
+      type: 'SET_LOADING',
+      value: {isLoading: true, loadingText: 'Loading...'},
+    });
+
+    axios({
+      method: 'POST',
+      url: stateAPI.url + '/api/login',
+      headers: {
+        'content-type': 'application/json',
+      },
+      data: JSON.stringify(form),
+    })
       .then(res => {
-        showMessageCustom('Successfully Login', 'success');
+        console.log(res);
+        dispatch({
+          type: 'SET_LOADING',
+          value: {isLoading: false, loadingText: ''},
+        });
       })
-      .catch(err => {
-        showMessageCustom(err.message, 'danger');
+      .catch(error => {
+        dispatch({
+          type: 'SET_LOADING',
+          value: {isLoading: false, loadingText: ''},
+        });
+        showMessageCustom(error.message, 'danger');
       });
   };
 

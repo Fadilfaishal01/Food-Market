@@ -1,8 +1,8 @@
 const initGlobalState = {
   isError: false,
   message: 'Error',
-  loading: false,
-  loadingText: '',
+  isLoading: false,
+  loadingText: 'Loading...',
 };
 
 export const globalReducer = (state = initGlobalState, action) => {
@@ -11,6 +11,14 @@ export const globalReducer = (state = initGlobalState, action) => {
       ...state,
       isError: action.value.isError,
       message: action.value.message,
+    };
+  }
+
+  if (action.type === 'SET_LOADING') {
+    return {
+      ...state,
+      isLoading: action.value.isLoading,
+      loadingText: action.value.loadingText,
     };
   }
   return state;

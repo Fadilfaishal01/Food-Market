@@ -18,3 +18,32 @@ export const registerReducer = (state = initStateRegister, action) => {
 
   return state;
 };
+
+const initPhoto = {
+  uri: '',
+  type: '',
+  name: '',
+  isUploadPhoto: false,
+};
+
+export const photoReducer = (state = initPhoto, action) => {
+  // Value yang nantinya akan dikirim ke API
+  if (action.type === 'SET_PHOTO') {
+    return {
+      ...state,
+      uri: action.value.uri,
+      type: action.value.type,
+      name: action.value.name,
+    };
+  }
+
+  // Memberikan kondisi jika user mengupload foto atau tidak
+  if (action.type === 'SET_PHOTO_STATUS') {
+    return {
+      ...state,
+      isUploadPhoto: action.value,
+    };
+  }
+
+  return state;
+};

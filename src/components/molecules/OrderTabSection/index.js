@@ -11,7 +11,7 @@ const InProgressTab = () => {
   return (
     <View style={styles.contentTabBar}>
       <ItemListFood
-        onPress={() => console.log('Halo')}
+        onPress={() => navigation.navigate('OrderDetail')}
         title="Sop Buntut Sapi"
         price="IDR 150.000"
         type="in-progress"

@@ -4,11 +4,14 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Image,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import {Button, Gap, Header, Input} from '../../components';
 import {colors, fonts, TypeIcon, useForm} from '../../utils';
 import {useDispatch} from 'react-redux';
+import {launchImageLibrary} from 'react-native-image-picker';
+import {showMessageCustom} from '../../utils/alertFlashMessage';
 
 export default function SignUp({navigation}) {
   const [form, setForm] = useForm({
@@ -17,6 +20,8 @@ export default function SignUp({navigation}) {
     password: '',
   });
 
+  const [photo, setPhoto] = useState('');
+
   const dispatch = useDispatch();
 
   const onSubmit = () => {
@@ -24,9 +29,35 @@ export default function SignUp({navigation}) {
     navigation.navigate('SignUpAddress');
   };
 
+  const addImage = () => {
+    launchImageLibrary(
+      {
+        quality: 0.5,
+        maxWidth: 200,
+        maxHeight: 200,
+      },
+      response => {
+        console.log(response);
+        if (response.didCancel || response.error) {
+          showMessageCustom('Belum memilih foto', 'danger');
+        } else {
+          const source = {uri: response.assets[0].uri};
+          const dataImage = {
+            uri: response.assets[0].uri,
+            type: response.assets[0].type,
+            name: response.assets[0].fileName,
+          };
+          setPhoto(source);
+          dispatch({type: 'SET_PHOTO', value: dataImage});
+          dispatch({type: 'SET_UPLOAD_STATUS', value: true});
+        }
+      },
+    );
+  };
+
   return (
     <ScrollView
-      contentContainerStyle={{flexGrow: 1}}
+      contentContainerStyle={styles.scroll}
       showsVerticalScrollIndicator={false}>
       <View style={styles.container}>
         <Header
@@ -38,11 +69,18 @@ export default function SignUp({navigation}) {
         {/* <Text>{`status error => ${globalState.isError}`}</Text> */}
         <View style={styles.wrapper}>
           <Gap height={26} />
-          <TouchableOpacity activeOpacity={0.7} style={styles.sectionPhoto}>
+          <TouchableOpacity
+            activeOpacity={0.7}
+            style={styles.sectionPhoto}
+            onPress={addImage}>
             <View style={styles.borderPhoto}>
-              <View style={styles.photoContainer}>
-                <Text style={styles.addPhoto}>Add Photo</Text>
-              </View>
+              {photo ? (
+                <Image source={photo} style={styles.photoContainer} />
+              ) : (
+                <View style={styles.photoContainer}>
+                  <Text style={styles.addPhoto}>Add Photo</Text>
+                </View>
+              )}
             </View>
           </TouchableOpacity>
           <Gap height={16} />
@@ -82,6 +120,9 @@ export default function SignUp({navigation}) {
 }
 
 const styles = StyleSheet.create({
+  scroll: {
+    flexGrow: 1,
+  },
   container: {
     flex: 1,
     backgroundColor: colors.light,
@@ -111,7 +152,8 @@ const styles = StyleSheet.create({
     height: 90,
     borderRadius: 90,
     backgroundColor: colors.fourth,
-    padding: 24,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   addPhoto: {
     fontSize: 14,

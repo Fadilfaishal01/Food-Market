@@ -2,17 +2,19 @@ import {ScrollView, StyleSheet, View} from 'react-native';
 import React from 'react';
 import {Button, Gap, Input, Header, Select} from '../../components';
 import {colors, fonts, showMessageCustom, TypeIcon, useForm} from '../../utils';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import axios from 'axios';
 
 export default function SignUpAddress({navigation}) {
+  const stateAPI = useSelector(state => state.apiReducer);
+  const dispatch = useDispatch();
   const [form, setForm] = useForm({
     address: '',
     phoneNumber: '',
     houseNumber: '',
     city: '',
   });
-  const registerReducer = useSelector(state => state.registerReducer);
+  const {registerReducer, photoReducer} = useSelector(state => state);
 
   const onSubmit = () => {
     const dataParam = {
@@ -20,25 +22,60 @@ export default function SignUpAddress({navigation}) {
       ...registerReducer,
     };
 
+    dispatch({
+      type: 'SET_LOADING',
+      value: {isLoading: true, loadingText: 'Loading...'},
+    });
+
     axios
-      .post('http://192.168.20.254:8001/api/register', dataParam)
+      .post(stateAPI.url + '/api/register', dataParam)
       .then(res => {
         const dataResponse = res.data;
-        if (dataResponse.meta.code === 200) {
-          showMessageCustom('Successfully Registered User', 'success');
-          navigation.replace('SuccessSignUp');
-          setForm('reset');
+        console.log(dataResponse);
+
+        if (photoReducer.isUploadPhoto) {
+          const photoForUpload = new FormData();
+          photoForUpload.append('file', photoReducer);
+
+          // Lakukan aksi upload photo ketika user sudah di registerasi
+          axios
+            .post(stateAPI.url + '/api/user/photo', photoForUpload, {
+              headers: {
+                Authorization: `${dataResponse.data.token_type} ${dataResponse.data.access_token}`, // Token dari hasil registerasi user
+                'Content-Type': 'multipart/form-data',
+              },
+            })
+            .then(resUpload => {
+              console.log('Success Upload : ', resUpload);
+            })
+            .catch(error => {
+              showMessageCustom('Failed Upload', 'danger');
+              console.log('Failed Upload : ', error);
+            });
         }
+
+        dispatch({
+          type: 'SET_LOADING',
+          value: {isLoading: false, loadingText: ''},
+        });
+
+        showMessageCustom('Successfully Register User', 'success');
+        navigation.replace('SuccessSignUp');
       })
       .catch(error => {
-        showMessageCustom(error.response, 'danger');
+        dispatch({
+          type: 'SET_LOADING',
+          value: {isLoading: false, loadingText: ''},
+        });
+        console.log(error);
+        // showMessageCustom(error?.response?.data?.message, 'danger');
       });
   };
 
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
-      contentContainerStyle={{flexGrow: 1}}>
+      contentContainerStyle={styles.scroll}>
       <View style={styles.container}>
         <Header
           withIcon
@@ -89,6 +126,9 @@ export default function SignUpAddress({navigation}) {
 }
 
 const styles = StyleSheet.create({
+  scroll: {
+    flexGrow: 1,
+  },
   container: {
     flex: 1,
     backgroundColor: colors.light,
