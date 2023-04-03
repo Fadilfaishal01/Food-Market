@@ -3,12 +3,17 @@ import {Text, View, StyleSheet} from 'react-native';
 import {Logo} from '../../assets';
 import {Gap} from '../../components';
 import colors from '../../utils/colors';
+import {getData} from '../../utils';
 
 const Splash = ({navigation}) => {
   useEffect(() => {
-    setTimeout(() => {
-      navigation.replace('SignIn');
-    }, 3000);
+    getData('token').then(res => {
+      if (res) {
+        navigation.reset({index: 0, routes: [{name: 'MainApp'}]});
+      } else {
+        navigation.reset({index: 0, routes: [{name: 'SignIn'}]});
+      }
+    });
   }, []);
 
   return (
