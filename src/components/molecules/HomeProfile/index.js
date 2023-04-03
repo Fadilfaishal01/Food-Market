@@ -1,17 +1,29 @@
 import {StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Image} from 'react-native';
 import {ProfileDummy} from '../../../assets';
-import {colors, fonts} from '../../../utils';
+import {colors, fonts, getData} from '../../../utils';
+import {useSelector} from 'react-redux';
 
 export default function HomeProfile() {
+  const [photo, setPhoto] = useState(ProfileDummy);
+  const stateAPI = useSelector(state => state.apiReducer);
+
+  useEffect(() => {
+    getData('userProfile').then(res => {
+      if (res != null) {
+        const urlPhoto = `${stateAPI.url}/storage/${res.profile_photo_path}`;
+        setPhoto({uri: res.profile_photo_url});
+      }
+    });
+  }, []);
   return (
     <View style={styles.profileContainer}>
       <View>
         <Text style={styles.appName}>FoodMarket</Text>
         <Text style={styles.desc}>Let's get some foods</Text>
       </View>
-      <Image source={ProfileDummy} style={styles.profile} />
+      <Image source={photo} style={styles.profile} />
     </View>
   );
 }
@@ -37,8 +49,8 @@ const styles = StyleSheet.create({
     color: colors.third,
   },
   profile: {
-    width: 50,
-    height: 50,
+    width: 40,
+    height: 40,
     borderRadius: 8,
   },
 });

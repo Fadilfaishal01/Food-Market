@@ -15,6 +15,7 @@ import Modal from 'react-native-modal';
 import {Button, Gap, Input, Loading} from './components';
 import {Text, View, StyleSheet, Alert} from 'react-native';
 import {colors, fonts, useForm} from './utils';
+import { setAPIUrl, setModalAPI } from './redux/action';
 
 const MainApp = () => {
   const {isLoading, loadingText} = useSelector(state => state.globalReducer);
@@ -44,8 +45,8 @@ const MainApp = () => {
   };
 
   const actionChangeAPI = () => {
-    dispatch({type: 'SET_URL', value: form.url});
-    dispatch({type: 'SET_MODAL_API', value: false});
+    dispatch(setAPIUrl(form.url));
+    dispatch(setModalAPI(false));
   };
 
   return (

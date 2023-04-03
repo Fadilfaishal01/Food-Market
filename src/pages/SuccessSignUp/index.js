@@ -16,7 +16,9 @@ export default function SuccessSignUp({navigation}) {
       <View style={styles.btnContainer}>
         <Button
           title="Find Foods"
-          onPress={() => navigation.replace('MainApp')}
+          onPress={() =>
+            navigation.reset({index: 0, routes: [{name: 'MainApp'}]})
+          }
         />
       </View>
     </View>

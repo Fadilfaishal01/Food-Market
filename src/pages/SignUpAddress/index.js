@@ -1,9 +1,9 @@
 import {ScrollView, StyleSheet, View} from 'react-native';
 import React from 'react';
 import {Button, Gap, Input, Header, Select} from '../../components';
-import {colors, fonts, showMessageCustom, TypeIcon, useForm} from '../../utils';
+import {colors, fonts, TypeIcon, useForm} from '../../utils';
 import {useDispatch, useSelector} from 'react-redux';
-import axios from 'axios';
+import {setLoading, signUpAction} from '../../redux/action';
 
 export default function SignUpAddress({navigation}) {
   const stateAPI = useSelector(state => state.apiReducer);
@@ -14,6 +14,7 @@ export default function SignUpAddress({navigation}) {
     houseNumber: '',
     city: '',
   });
+
   const {registerReducer, photoReducer} = useSelector(state => state);
 
   const onSubmit = () => {
@@ -22,54 +23,8 @@ export default function SignUpAddress({navigation}) {
       ...registerReducer,
     };
 
-    dispatch({
-      type: 'SET_LOADING',
-      value: {isLoading: true, loadingText: 'Loading...'},
-    });
-
-    axios
-      .post(stateAPI.url + '/api/register', dataParam)
-      .then(res => {
-        const dataResponse = res.data;
-        console.log(dataResponse);
-
-        if (photoReducer.isUploadPhoto) {
-          const photoForUpload = new FormData();
-          photoForUpload.append('file', photoReducer);
-
-          // Lakukan aksi upload photo ketika user sudah di registerasi
-          axios
-            .post(stateAPI.url + '/api/user/photo', photoForUpload, {
-              headers: {
-                Authorization: `${dataResponse.data.token_type} ${dataResponse.data.access_token}`, // Token dari hasil registerasi user
-                'Content-Type': 'multipart/form-data',
-              },
-            })
-            .then(resUpload => {
-              console.log('Success Upload : ', resUpload);
-            })
-            .catch(error => {
-              showMessageCustom('Failed Upload', 'danger');
-              console.log('Failed Upload : ', error);
-            });
-        }
-
-        dispatch({
-          type: 'SET_LOADING',
-          value: {isLoading: false, loadingText: ''},
-        });
-
-        showMessageCustom('Successfully Register User', 'success');
-        navigation.replace('SuccessSignUp');
-      })
-      .catch(error => {
-        dispatch({
-          type: 'SET_LOADING',
-          value: {isLoading: false, loadingText: ''},
-        });
-        console.log(error);
-        // showMessageCustom(error?.response?.data?.message, 'danger');
-      });
+    dispatch(setLoading(true, 'Loading...'));
+    dispatch(signUpAction(dataParam, photoReducer, navigation, stateAPI.url));
   };
 
   return (

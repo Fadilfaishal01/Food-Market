@@ -3,9 +3,8 @@ import React from 'react';
 import {Button, Gap, Header, Input} from '../../components';
 import {colors, TypeIcon, useForm} from '../../utils';
 import {Login} from '../../assets';
-import axios from 'axios';
-import {showMessageCustom} from '../../utils/alertFlashMessage';
 import {useDispatch, useSelector} from 'react-redux';
+import {setLoading, setModalAPI, signInAction} from '../../redux/action';
 
 export default function SignIn({navigation}) {
   const stateAPI = useSelector(state => state.apiReducer);
@@ -18,36 +17,11 @@ export default function SignIn({navigation}) {
 
   const onSubmit = () => {
     if (stateAPI.url === '') {
-      dispatch({type: 'SET_MODAL_API', value: true});
+      dispatch(setModalAPI(true));
     }
 
-    dispatch({
-      type: 'SET_LOADING',
-      value: {isLoading: true, loadingText: 'Loading...'},
-    });
-
-    axios({
-      method: 'POST',
-      url: stateAPI.url + '/api/login',
-      headers: {
-        'content-type': 'application/json',
-      },
-      data: JSON.stringify(form),
-    })
-      .then(res => {
-        console.log(res);
-        dispatch({
-          type: 'SET_LOADING',
-          value: {isLoading: false, loadingText: ''},
-        });
-      })
-      .catch(error => {
-        dispatch({
-          type: 'SET_LOADING',
-          value: {isLoading: false, loadingText: ''},
-        });
-        showMessageCustom(error.message, 'danger');
-      });
+    dispatch(setLoading(true, 'Loading...'));
+    dispatch(signInAction(form, navigation, stateAPI.url));
   };
 
   return (

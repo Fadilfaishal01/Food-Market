@@ -1,5 +1,5 @@
 const initStateAPI = {
-  url: 'http://192.168.21.147:8000',
+  url: 'http://192.168.253.30:8000',
   modalAPI: false,
 };
 

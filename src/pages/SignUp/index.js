@@ -12,6 +12,11 @@ import {colors, fonts, TypeIcon, useForm} from '../../utils';
 import {useDispatch} from 'react-redux';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {showMessageCustom} from '../../utils/alertFlashMessage';
+import {
+  setPhotoAction,
+  setSignUpAction,
+  setStatusPhotoAction,
+} from '../../redux/action';
 
 export default function SignUp({navigation}) {
   const [form, setForm] = useForm({
@@ -25,7 +30,7 @@ export default function SignUp({navigation}) {
   const dispatch = useDispatch();
 
   const onSubmit = () => {
-    dispatch({type: 'SET_REGISTER', value: form});
+    dispatch(setSignUpAction(form));
     navigation.navigate('SignUpAddress');
   };
 
@@ -37,7 +42,6 @@ export default function SignUp({navigation}) {
         maxHeight: 200,
       },
       response => {
-        console.log(response);
         if (response.didCancel || response.error) {
           showMessageCustom('Belum memilih foto', 'danger');
         } else {
@@ -47,9 +51,10 @@ export default function SignUp({navigation}) {
             type: response.assets[0].type,
             name: response.assets[0].fileName,
           };
+
           setPhoto(source);
-          dispatch({type: 'SET_PHOTO', value: dataImage});
-          dispatch({type: 'SET_UPLOAD_STATUS', value: true});
+          dispatch(setPhotoAction(dataImage));
+          dispatch(setStatusPhotoAction(true));
         }
       },
     );
