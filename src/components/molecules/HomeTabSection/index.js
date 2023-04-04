@@ -5,19 +5,40 @@ import {
   useWindowDimensions,
   ScrollView,
 } from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import {colors, fonts} from '../../../utils';
 import ItemListFood from '../ItemListFood';
-import {FoodDummy1, FoodDummy2, FoodDummy3, FoodDummy4} from '../../../assets';
 import {useNavigation} from '@react-navigation/native';
+import {useDispatch, useSelector} from 'react-redux';
+import {getFoodDataByTypes} from '../../../redux/action';
 
 const NewTasteTab = () => {
   const navigation = useNavigation();
+  const {homeReducer, apiReducer} = useSelector(state => state);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getFoodDataByTypes(apiReducer.url, 'new_food'));
+  }, []);
+
   return (
     <View style={styles.contentTabBar}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <ItemListFood
+        {homeReducer.newTaste.map(itemFood => {
+          return (
+            <ItemListFood
+              key={itemFood.id}
+              type="product"
+              ratings={itemFood.rate}
+              onPress={() => navigation.navigate('FoodDetail')}
+              title={itemFood.name}
+              price={itemFood.price}
+              image={itemFood.photoPath}
+            />
+          );
+        })}
+        {/* <ItemListFood
           type="product"
           ratings={4.5}
           onPress={() => navigation.navigate('FoodDetail')}
@@ -80,7 +101,7 @@ const NewTasteTab = () => {
           title="Kari Ayam Khas Majalengka"
           price="IDR 90.000"
           image={FoodDummy4}
-        />
+        /> */}
       </ScrollView>
     </View>
   );
@@ -88,10 +109,30 @@ const NewTasteTab = () => {
 
 const PopularTab = () => {
   const navigation = useNavigation();
+  const {homeReducer, apiReducer} = useSelector(state => state);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getFoodDataByTypes(apiReducer.url, 'popular'));
+  }, []);
+
   return (
     <View style={styles.contentTabBar}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <ItemListFood
+        {homeReducer.popular.map(itemFood => {
+          return (
+            <ItemListFood
+              key={itemFood.id}
+              type="product"
+              ratings={itemFood.rate}
+              onPress={() => navigation.navigate('FoodDetail')}
+              title={itemFood.name}
+              price={itemFood.price}
+              image={itemFood.photoPath}
+            />
+          );
+        })}
+        {/* <ItemListFood
           type="product"
           ratings={4.5}
           onPress={() => navigation.navigate('FoodDetail')}
@@ -154,7 +195,7 @@ const PopularTab = () => {
           title="Kari Ayam Khas Majalengka"
           price="IDR 90.000"
           image={FoodDummy4}
-        />
+        /> */}
       </ScrollView>
     </View>
   );
@@ -162,10 +203,30 @@ const PopularTab = () => {
 
 const RecommendedTab = () => {
   const navigation = useNavigation();
+  const {homeReducer, apiReducer} = useSelector(state => state);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getFoodDataByTypes(apiReducer.url, 'recommended'));
+  }, []);
+
   return (
     <View style={styles.contentTabBar}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <ItemListFood
+        {homeReducer.recommended.map(itemFood => {
+          return (
+            <ItemListFood
+              key={itemFood.id}
+              type="product"
+              ratings={itemFood.rate}
+              onPress={() => navigation.navigate('FoodDetail')}
+              title={itemFood.name}
+              price={itemFood.price}
+              image={itemFood.photoPath}
+            />
+          );
+        })}
+        {/* <ItemListFood
           type="product"
           ratings={4.5}
           onPress={() => navigation.navigate('FoodDetail')}
@@ -228,7 +289,7 @@ const RecommendedTab = () => {
           title="Kari Ayam Khas Majalengka"
           price="IDR 90.000"
           image={FoodDummy4}
-        />
+        /> */}
       </ScrollView>
     </View>
   );

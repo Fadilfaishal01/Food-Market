@@ -17,23 +17,22 @@ const AccountTab = () => {
 
   return (
     <View style={styles.contentTabBar}>
-      <ItemListMenu label="Edit Profile" />
-      <ItemListMenu label="Home Address" />
-      <ItemListMenu label="Security" />
-      <ItemListMenu label="Payments" />
+      <ItemListMenu next label="Edit Profile" />
+      <ItemListMenu next label="Home Address" />
+      <ItemListMenu next label="Security" />
+      <ItemListMenu next label="Payments" />
       <ItemListMenu label="Sign Out" onPress={signOut} />
     </View>
   );
 };
 
 const FoodMarketTab = () => {
-  const navigation = useNavigation();
   return (
     <View style={styles.contentTabBar}>
-      <ItemListMenu label="Rate App" />
-      <ItemListMenu label="Help Center" />
-      <ItemListMenu label="Privacy & Policy" />
-      <ItemListMenu label="Terms & Conditions" />
+      <ItemListMenu next label="Rate App" />
+      <ItemListMenu next label="Help Center" />
+      <ItemListMenu next label="Privacy & Policy" />
+      <ItemListMenu next label="Terms & Conditions" />
     </View>
   );
 };

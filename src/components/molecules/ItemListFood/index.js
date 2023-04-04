@@ -2,6 +2,7 @@ import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
 import Rating from '../Rating';
 import {colors, fonts} from '../../../utils';
+import Number from '../Number';
 
 /*
  TYPE :
@@ -22,14 +23,14 @@ export default function ItemListFood({
   date,
   status,
 }) {
-  const renderContent = type => {
-    switch (type) {
+  const renderContent = typeList => {
+    switch (typeList) {
       case 'product':
         return (
           <>
             <View style={styles.newTasteDescription}>
               <Text style={styles.newTasteTitle}>{title}</Text>
-              <Text style={styles.newTastePrice}>{price}</Text>
+              <Number style={styles.newTastePrice} value={price} />
             </View>
             <Rating rating={ratings} />
           </>
@@ -39,7 +40,7 @@ export default function ItemListFood({
           <>
             <View style={styles.newTasteDescription}>
               <Text style={styles.newTasteTitle}>{title}</Text>
-              <Text style={styles.newTastePrice}>{price}</Text>
+              <Number style={styles.newTastePrice} value={price} />
             </View>
             <Text style={styles.items}>{items} items</Text>
           </>
@@ -61,7 +62,7 @@ export default function ItemListFood({
             <View style={styles.newTasteDescription}>
               <Text style={styles.newTasteTitle}>{title}</Text>
               <Text>
-                {items} items . {price}
+                {items} items . IDR {price}
               </Text>
             </View>
             <View>
@@ -75,7 +76,7 @@ export default function ItemListFood({
           <>
             <View style={styles.newTasteDescription}>
               <Text style={styles.newTasteTitle}>{title}</Text>
-              <Text style={styles.newTastePrice}>{price}</Text>
+              <Number style={styles.newTastePrice} value={price} />
             </View>
             <Rating />
           </>

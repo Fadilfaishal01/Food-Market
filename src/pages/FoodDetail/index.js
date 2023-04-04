@@ -5,15 +5,23 @@ import {
   ImageBackground,
   TouchableOpacity,
 } from 'react-native';
-import React from 'react';
-import {FoodDummy1, IcBackWhite} from '../../assets';
-import {Button, Counter, Rating} from '../../components';
+import React, {useState} from 'react';
+import {IcBackWhite} from '../../assets';
+import {Button, Counter, Number, Rating} from '../../components';
 import {colors, fonts} from '../../utils';
 
-export default function FoodDetail({navigation}) {
+export default function FoodDetail({navigation, route}) {
+  const {name, picturePath, description, rate, ingredients, price} =
+    route.params;
+  const [totalItem, setTotalItem] = useState(1);
+
+  const onCounterChange = value => {
+    setTotalItem(value);
+  };
+
   return (
     <View style={styles.page}>
-      <ImageBackground source={FoodDummy1} style={styles.cover}>
+      <ImageBackground source={{uri: picturePath}} style={styles.cover}>
         <TouchableOpacity
           style={styles.back}
           onPress={() => navigation.goBack()}>
@@ -24,21 +32,19 @@ export default function FoodDetail({navigation}) {
         <View style={styles.mainContent}>
           <View style={styles.productContainer}>
             <View>
-              <Text style={styles.title}>Cherry Berry</Text>
-              <Rating />
+              <Text style={styles.title}>{name}</Text>
+              <Rating rating={rate} />
             </View>
-            <Counter />
+            <Counter onValueChange={onCounterChange} />
           </View>
-          <Text style={styles.desc}>
-            Makanan khas bandung yang cukup sering dipesan oleh anak muda.
-          </Text>
+          <Text style={styles.desc}>{description}</Text>
           <Text style={styles.label}>Ingredients:</Text>
-          <Text style={styles.desc}>Seledri, telur, blueberry, madu.</Text>
+          <Text style={styles.desc}>{ingredients}</Text>
         </View>
         <View style={styles.footer}>
           <View style={styles.priceContainer}>
             <Text style={styles.labelTotal}>Total Price :</Text>
-            <Text style={styles.priceTotal}>IDR 12.900.000</Text>
+            <Number style={styles.priceTotal} value={totalItem * price} />
           </View>
           <View style={styles.button}>
             <Button

@@ -1,17 +1,22 @@
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {colors, fonts} from '../../../utils';
 import Rating from '../Rating';
+import {useSelector} from 'react-redux';
 
-export default function FoodCard({image, title}) {
+export default function FoodCard({image, title, rating, onPress}) {
+  const {apiReducer} = useSelector(state => state);
+  const urlImage = `${apiReducer.url}/${image}`;
   return (
-    <View style={styles.container}>
-      <Image style={styles.images} source={image} />
-      <View style={styles.content}>
-        <Text style={styles.text}>{title}</Text>
-        <Rating />
+    <TouchableOpacity onPress={onPress} activeOpacity={0.7}>
+      <View style={styles.container}>
+        <Image style={styles.images} source={{uri: urlImage}} />
+        <View style={styles.content}>
+          <Text style={styles.text}>{title}</Text>
+          <Rating rating={rating} />
+        </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }
 

@@ -3,11 +3,11 @@ import React from 'react';
 import {colors, fonts} from '../../../utils';
 import {IcNext} from '../../../assets';
 
-export default function ItemListMenu({label, onPress}) {
+export default function ItemListMenu({label, onPress, next}) {
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
       <Text style={styles.text}>{label}</Text>
-      <IcNext />
+      {next && <IcNext />}
     </TouchableOpacity>
   );
 }

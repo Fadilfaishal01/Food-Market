@@ -11,7 +11,8 @@ const Splash = ({navigation}) => {
       if (res) {
         navigation.reset({index: 0, routes: [{name: 'MainApp'}]});
       } else {
-        navigation.reset({index: 0, routes: [{name: 'SignIn'}]});
+        navigation.reset({index: 0, routes: [{name: 'MainApp'}]});
+        // navigation.reset({index: 0, routes: [{name: 'SignIn'}]});
       }
     });
   }, []);
