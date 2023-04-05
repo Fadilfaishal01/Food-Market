@@ -31,77 +31,13 @@ const NewTasteTab = () => {
               key={itemFood.id}
               type="product"
               ratings={itemFood.rate}
-              onPress={() => navigation.navigate('FoodDetail')}
+              onPress={() => navigation.navigate('FoodDetail', itemFood)}
               title={itemFood.name}
               price={itemFood.price}
-              image={itemFood.photoPath}
+              image={itemFood.picturePath}
             />
           );
         })}
-        {/* <ItemListFood
-          type="product"
-          ratings={4.5}
-          onPress={() => navigation.navigate('FoodDetail')}
-          title="Sop Buntut Sapi"
-          price="IDR 150.000"
-          image={FoodDummy1}
-        />
-        <ItemListFood
-          type="product"
-          ratings={4.5}
-          onPress={() => navigation.navigate('FoodDetail')}
-          title="Baso Merecon Kang Mus"
-          price="IDR 80.000"
-          image={FoodDummy2}
-        />
-        <ItemListFood
-          type="product"
-          ratings={4.5}
-          onPress={() => navigation.navigate('FoodDetail')}
-          title="Kopi Kintamani Bali"
-          price="IDR 50.000"
-          image={FoodDummy3}
-        />
-        <ItemListFood
-          type="product"
-          ratings={4.5}
-          onPress={() => navigation.navigate('FoodDetail')}
-          title="Kari Ayam Khas Majalengka"
-          price="IDR 90.000"
-          image={FoodDummy4}
-        />
-        <ItemListFood
-          type="product"
-          ratings={4.5}
-          onPress={() => navigation.navigate('FoodDetail')}
-          title="Sop Buntut Sapi"
-          price="IDR 150.000"
-          image={FoodDummy1}
-        />
-        <ItemListFood
-          type="product"
-          ratings={4.5}
-          onPress={() => navigation.navigate('FoodDetail')}
-          title="Baso Merecon Kang Mus"
-          price="IDR 80.000"
-          image={FoodDummy2}
-        />
-        <ItemListFood
-          type="product"
-          ratings={4.5}
-          onPress={() => navigation.navigate('FoodDetail')}
-          title="Kopi Kintamani Bali"
-          price="IDR 50.000"
-          image={FoodDummy3}
-        />
-        <ItemListFood
-          type="product"
-          ratings={4.5}
-          onPress={() => navigation.navigate('FoodDetail')}
-          title="Kari Ayam Khas Majalengka"
-          price="IDR 90.000"
-          image={FoodDummy4}
-        /> */}
       </ScrollView>
     </View>
   );
@@ -125,77 +61,13 @@ const PopularTab = () => {
               key={itemFood.id}
               type="product"
               ratings={itemFood.rate}
-              onPress={() => navigation.navigate('FoodDetail')}
+              onPress={() => navigation.navigate('FoodDetail', itemFood)}
               title={itemFood.name}
               price={itemFood.price}
-              image={itemFood.photoPath}
+              image={itemFood.picturePath}
             />
           );
         })}
-        {/* <ItemListFood
-          type="product"
-          ratings={4.5}
-          onPress={() => navigation.navigate('FoodDetail')}
-          title="Sop Buntut Sapi"
-          price="IDR 150.000"
-          image={FoodDummy1}
-        />
-        <ItemListFood
-          type="product"
-          ratings={4.5}
-          onPress={() => navigation.navigate('FoodDetail')}
-          title="Baso Merecon Kang Mus"
-          price="IDR 80.000"
-          image={FoodDummy2}
-        />
-        <ItemListFood
-          type="product"
-          ratings={4.5}
-          onPress={() => navigation.navigate('FoodDetail')}
-          title="Kopi Kintamani Bali"
-          price="IDR 50.000"
-          image={FoodDummy3}
-        />
-        <ItemListFood
-          type="product"
-          ratings={4.5}
-          onPress={() => navigation.navigate('FoodDetail')}
-          title="Kari Ayam Khas Majalengka"
-          price="IDR 90.000"
-          image={FoodDummy4}
-        />
-        <ItemListFood
-          type="product"
-          ratings={4.5}
-          onPress={() => navigation.navigate('FoodDetail')}
-          title="Sop Buntut Sapi"
-          price="IDR 150.000"
-          image={FoodDummy1}
-        />
-        <ItemListFood
-          type="product"
-          ratings={4.5}
-          onPress={() => navigation.navigate('FoodDetail')}
-          title="Baso Merecon Kang Mus"
-          price="IDR 80.000"
-          image={FoodDummy2}
-        />
-        <ItemListFood
-          type="product"
-          ratings={4.5}
-          onPress={() => navigation.navigate('FoodDetail')}
-          title="Kopi Kintamani Bali"
-          price="IDR 50.000"
-          image={FoodDummy3}
-        />
-        <ItemListFood
-          type="product"
-          ratings={4.5}
-          onPress={() => navigation.navigate('FoodDetail')}
-          title="Kari Ayam Khas Majalengka"
-          price="IDR 90.000"
-          image={FoodDummy4}
-        /> */}
       </ScrollView>
     </View>
   );
@@ -219,77 +91,13 @@ const RecommendedTab = () => {
               key={itemFood.id}
               type="product"
               ratings={itemFood.rate}
-              onPress={() => navigation.navigate('FoodDetail')}
+              onPress={() => navigation.navigate('FoodDetail', itemFood)}
               title={itemFood.name}
               price={itemFood.price}
-              image={itemFood.photoPath}
+              image={itemFood.picturePath}
             />
           );
         })}
-        {/* <ItemListFood
-          type="product"
-          ratings={4.5}
-          onPress={() => navigation.navigate('FoodDetail')}
-          title="Sop Buntut Sapi"
-          price="IDR 150.000"
-          image={FoodDummy1}
-        />
-        <ItemListFood
-          type="product"
-          ratings={4.5}
-          onPress={() => navigation.navigate('FoodDetail')}
-          title="Baso Merecon Kang Mus"
-          price="IDR 80.000"
-          image={FoodDummy2}
-        />
-        <ItemListFood
-          type="product"
-          ratings={4.5}
-          onPress={() => navigation.navigate('FoodDetail')}
-          title="Kopi Kintamani Bali"
-          price="IDR 50.000"
-          image={FoodDummy3}
-        />
-        <ItemListFood
-          type="product"
-          ratings={4.5}
-          onPress={() => navigation.navigate('FoodDetail')}
-          title="Kari Ayam Khas Majalengka"
-          price="IDR 90.000"
-          image={FoodDummy4}
-        />
-        <ItemListFood
-          type="product"
-          ratings={4.5}
-          onPress={() => navigation.navigate('FoodDetail')}
-          title="Sop Buntut Sapi"
-          price="IDR 150.000"
-          image={FoodDummy1}
-        />
-        <ItemListFood
-          type="product"
-          ratings={4.5}
-          onPress={() => navigation.navigate('FoodDetail')}
-          title="Baso Merecon Kang Mus"
-          price="IDR 80.000"
-          image={FoodDummy2}
-        />
-        <ItemListFood
-          type="product"
-          ratings={4.5}
-          onPress={() => navigation.navigate('FoodDetail')}
-          title="Kopi Kintamani Bali"
-          price="IDR 50.000"
-          image={FoodDummy3}
-        />
-        <ItemListFood
-          type="product"
-          ratings={4.5}
-          onPress={() => navigation.navigate('FoodDetail')}
-          title="Kari Ayam Khas Majalengka"
-          price="IDR 90.000"
-          image={FoodDummy4}
-        /> */}
       </ScrollView>
     </View>
   );

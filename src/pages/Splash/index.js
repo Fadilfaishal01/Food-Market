@@ -7,14 +7,16 @@ import {getData} from '../../utils';
 
 const Splash = ({navigation}) => {
   useEffect(() => {
-    getData('token').then(res => {
-      if (res) {
-        navigation.reset({index: 0, routes: [{name: 'MainApp'}]});
-      } else {
-        navigation.reset({index: 0, routes: [{name: 'MainApp'}]});
-        // navigation.reset({index: 0, routes: [{name: 'SignIn'}]});
-      }
-    });
+    setTimeout(() => {
+      getData('token').then(res => {
+        if (res) {
+          navigation.reset({index: 0, routes: [{name: 'MainApp'}]});
+        } else {
+          // navigation.reset({index: 0, routes: [{name: 'MainApp'}]});
+          navigation.reset({index: 0, routes: [{name: 'SignIn'}]});
+        }
+      });
+    }, 2000);
   }, []);
 
   return (

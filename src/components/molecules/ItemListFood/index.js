@@ -87,7 +87,7 @@ export default function ItemListFood({
   return (
     <TouchableOpacity activeOpacity={0.7} onPress={onPress}>
       <View style={styles.newTasteContainer}>
-        <Image style={styles.newTasteImage} source={image} />
+        <Image style={styles.newTasteImage} source={{uri: image}} />
         {renderContent(type)}
       </View>
     </TouchableOpacity>
@@ -120,6 +120,7 @@ const styles = StyleSheet.create({
   newTastePrice: {
     fontFamily: fonts.poppins,
     fontSize: 13,
+    fontWeight: '700',
     color: colors.third,
   },
   items: {

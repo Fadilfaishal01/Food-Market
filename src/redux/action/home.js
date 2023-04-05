@@ -6,7 +6,6 @@ export const getFoodData = url => dispatch => {
     .get(`${url}/api/food`)
     .then(res => {
       const dataResponse = res.data.data.data;
-      console.log(dataResponse);
       dispatch({type: 'SET_FOOD', value: dataResponse});
     })
     .catch(err => {
@@ -20,19 +19,16 @@ export const getFoodDataByTypes = (url, type) => dispatch => {
     .get(`${url}/api/food?types=${type}`)
     .then(res => {
       const dataResponse = res.data.data.data;
-      switch (type) {
-        case 'new_food':
-          dispatch({type: 'SET_NEW_TASTE', value: dataResponse});
-          break;
-        case 'popular':
-          dispatch({type: 'SET_POPULAR', value: dataResponse});
-          break;
-        case 'recommended':
-          dispatch({type: 'SET_RECOMMENDED', value: dataResponse});
-          break;
-        default:
-          dispatch({type: 'SET_FOOD', value: dataResponse});
-          break;
+      if (type === 'new_food') {
+        return dispatch({type: 'SET_NEW_TASTE', value: dataResponse});
+      }
+
+      if (type === 'popular') {
+        return dispatch({type: 'SET_POPULAR', value: dataResponse});
+      }
+
+      if (type === 'recommended') {
+        return dispatch({type: 'SET_RECOMMENDED', value: dataResponse});
       }
     })
     .catch(err => {

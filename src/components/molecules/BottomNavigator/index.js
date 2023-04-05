@@ -8,7 +8,7 @@ import {
   IcProfileOff,
   IcProfileOn,
 } from '../../../assets';
-import { colors } from '../../../utils';
+import {colors} from '../../../utils';
 
 const Icon = ({label, focus}) => {
   switch (label) {

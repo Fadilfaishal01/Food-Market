@@ -26,13 +26,11 @@ export default function Counter({onValueChange}) {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={onCount('minus')}>
+      <TouchableOpacity onPress={() => onCount('minus')}>
         <IcMin />
       </TouchableOpacity>
       <Text style={styles.value}>{value}</Text>
-      <TouchableOpacity
-        disabled={value > 1 ? true : false}
-        onPress={onCount('plus')}>
+      <TouchableOpacity onPress={() => onCount('plus')}>
         <IcPlus />
       </TouchableOpacity>
     </View>

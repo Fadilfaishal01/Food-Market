@@ -5,18 +5,49 @@ import {
   ImageBackground,
   TouchableOpacity,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {IcBackWhite} from '../../assets';
 import {Button, Counter, Number, Rating} from '../../components';
-import {colors, fonts} from '../../utils';
+import {colors, fonts, getData} from '../../utils';
 
 export default function FoodDetail({navigation, route}) {
   const {name, picturePath, description, rate, ingredients, price} =
     route.params;
   const [totalItem, setTotalItem] = useState(1);
-
+  const [userProfile, setUserProfile] = useState({});
   const onCounterChange = value => {
     setTotalItem(value);
+  };
+
+  useEffect(() => {
+    getData('userProfile').then(res => {
+      setUserProfile(res);
+    });
+  }, []);
+
+  const onOrder = () => {
+    const totalPrice = totalItem * price;
+    const driver = 50000;
+    const tax = (10 / 100) * (totalItem * price);
+    const total = totalPrice + driver + tax;
+
+    const data = {
+      item: {
+        name: name,
+        price: price,
+        picturePath: picturePath,
+      },
+      transaction: {
+        totalItem: totalItem,
+        totalPrice: totalPrice,
+        driver: driver,
+        tax: tax,
+        total: total,
+      },
+      userProfile,
+    };
+
+    navigation.navigate('OrderSummary', data);
   };
 
   return (
@@ -47,10 +78,7 @@ export default function FoodDetail({navigation, route}) {
             <Number style={styles.priceTotal} value={totalItem * price} />
           </View>
           <View style={styles.button}>
-            <Button
-              title="Order Now"
-              onPress={() => navigation.navigate('OrderSummary')}
-            />
+            <Button title="Order Now" onPress={() => onOrder()} />
           </View>
         </View>
       </View>
@@ -79,7 +107,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 40,
     marginTop: -40,
     paddingTop: 26,
-    paddingHorizontal: 16,
+    paddingHorizontal: 30,
     flex: 1,
   },
   mainContent: {

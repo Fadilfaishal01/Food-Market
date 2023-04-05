@@ -1,6 +1,7 @@
 import React from 'react';
 import {Text} from 'react-native';
 import {NumericFormat} from 'react-number-format';
+import { getFormattedNumberRP } from '../../../utils';
 
 export default function Number({value, type, style}) {
   if (type === 'decimal') {
@@ -19,12 +20,11 @@ export default function Number({value, type, style}) {
   return (
     <NumericFormat
       value={value}
-      thousandSeparator=","
-      allowLeadingZeros
-      decimalSeparator=","
+      thousandSeparator={true}
       displayType="text"
-      prefix="IDR "
-      renderText={() => <Text style={style}>{value}</Text>}
+      renderText={() => (
+        <Text style={style}>IDR {getFormattedNumberRP(value)}</Text>
+      )}
     />
   );
 }

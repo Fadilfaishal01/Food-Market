@@ -1,10 +1,10 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {Button, Header, ItemListFood, ItemValue} from '../../components';
-import {FoodDummy1} from '../../assets';
-import {colors, fonts} from '../../utils';
+import {colors, fonts, getFormattedNumberRP} from '../../utils';
 
-export default function OrderSummary({navigation}) {
+export default function OrderSummary({navigation, route}) {
+  const {item, transaction, userProfile} = route.params;
   return (
     <View>
       <Header
@@ -17,29 +17,38 @@ export default function OrderSummary({navigation}) {
         <Text style={styles.label}>OrderSummary</Text>
         <ItemListFood
           type="order-summary"
-          title="Sop Buntut Sapi"
-          price="IDR 150.000"
-          image={FoodDummy1}
-          items={3}
+          title={item.name}
+          price={item.price}
+          items={transaction.totalItem}
+          image={item.picturePath}
         />
         {/* Item Value */}
         <Text style={styles.label}>Detail Transaction</Text>
-        <ItemValue label="Sop Buntut Sapi" value="IDR 90.000" />
-        <ItemValue label="Driver" value="IDR 40.000" />
-        <ItemValue label="Tax 10%" value="IDR 13.000" />
+        <ItemValue
+          label={item.name}
+          value={`IDR ${getFormattedNumberRP(item.price)}`}
+        />
+        <ItemValue
+          label="Driver"
+          value={`IDR ${getFormattedNumberRP(transaction.driver)}`}
+        />
+        <ItemValue
+          label="Tax 10%"
+          value={`IDR ${getFormattedNumberRP(transaction.tax)}`}
+        />
         <ItemValue
           valueColor={colors.success}
           label="Total Price"
-          value="IDR 143.000"
+          value={`IDR ${getFormattedNumberRP(transaction.totalPrice)}`}
         />
       </View>
       <View style={styles.content}>
         <Text style={styles.label}>Deliver to :</Text>
-        <ItemValue label="Name" value="Fadil Faishal" />
-        <ItemValue label="Phone No." value="085156349966" />
-        <ItemValue label="Address" value="Villa Ciomas Indah Blok K9 No.8" />
-        <ItemValue label="House No." value="8" />
-        <ItemValue label="City" value="Bogor" />
+        <ItemValue label="Name" value={userProfile.name} />
+        <ItemValue label="Phone No." value={userProfile.phoneNumber} />
+        <ItemValue label="Address" value={userProfile.address} />
+        <ItemValue label="House No." value={userProfile.houseNumber} />
+        <ItemValue label="City" value={userProfile.city} />
       </View>
       <View style={styles.button}>
         <Button

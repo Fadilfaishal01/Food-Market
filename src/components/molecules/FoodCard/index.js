@@ -2,15 +2,12 @@ import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {colors, fonts} from '../../../utils';
 import Rating from '../Rating';
-import {useSelector} from 'react-redux';
 
 export default function FoodCard({image, title, rating, onPress}) {
-  const {apiReducer} = useSelector(state => state);
-  const urlImage = `${apiReducer.url}/${image}`;
   return (
     <TouchableOpacity onPress={onPress} activeOpacity={0.7}>
       <View style={styles.container}>
-        <Image style={styles.images} source={{uri: urlImage}} />
+        <Image style={styles.images} source={{uri: image}} />
         <View style={styles.content}>
           <Text style={styles.text}>{title}</Text>
           <Rating rating={rating} />
@@ -23,6 +20,8 @@ export default function FoodCard({image, title, rating, onPress}) {
 const styles = StyleSheet.create({
   container: {
     width: 200,
+    minHeight: 230,
+    // maxHeight: 300,
     backgroundColor: colors.light,
     borderRadius: 8,
     shadowColor: colors.dark,
@@ -39,6 +38,8 @@ const styles = StyleSheet.create({
     height: 140,
   },
   content: {
+    flex: 1,
+    justifyContent: 'space-between',
     padding: 12,
   },
   text: {

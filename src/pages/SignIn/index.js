@@ -28,7 +28,7 @@ export default function SignIn({navigation}) {
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <Header title="Sign In" subTitle="Find your best ever meal" />
       <View style={styles.wrapperIconSVG}>
-        <Login width={'100%'} height={'70%'} />
+        <Login width={'100%'} height={'100%'} />
       </View>
       <View style={styles.wrapper}>
         <Input
@@ -75,13 +75,13 @@ const styles = StyleSheet.create({
   },
   wrapperIconSVG: {
     alignItems: 'center',
-    height: 260,
+    height: 200,
     justifyContent: 'center',
   },
   wrapper: {
     backgroundColor: colors.light,
     paddingHorizontal: 24,
-    paddingVertical: 26,
+    paddingVertical: 10,
     marginTop: 24,
     flex: 1,
   },
